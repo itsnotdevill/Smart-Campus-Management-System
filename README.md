@@ -66,4 +66,4 @@ npm run dev
 - Mobile App integration.
 
 ---
-**University Final Year Project** - Prepared by [Your Name]
+**University Final Year Project** - Prepared by [itsnotdevill]
