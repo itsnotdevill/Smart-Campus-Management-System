@@ -68,4 +68,31 @@ const registerUser = async (req, res) => {
     }
 };
 
-module.exports = { authUser, registerUser };
+// @desc    Get all users (with role filter)
+// @route   GET /api/users
+// @access  Private/Admin
+const getUsers = async (req, res) => {
+    const role = req.query.role;
+    let query = {};
+    if (role) {
+        query.role = role;
+    }
+    const users = await User.find(query).select('-password');
+    res.json(users);
+};
+
+// @desc    Delete user
+// @route   DELETE /api/users/:id
+// @access  Private/Admin
+const deleteUser = async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+        await user.deleteOne();
+        res.json({ message: 'User removed' });
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+};
+
+module.exports = { authUser, registerUser, getUsers, deleteUser };
